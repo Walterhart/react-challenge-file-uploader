@@ -30,13 +30,24 @@ export default function App() {
 		e.preventDefault()
 		filesToUpload.forEach(file => console.log(file))
 	}
-
+	
+	function handleChange(e){	
+		const filesProperty = [...e.target.files].map(file=>{
+			return {fileName: file.name, fileType:file.type, fileSize: file.size}
+		})	
+		setFilesToUpload(filesProperty)
+	}
+	
 	return (
 		<form onSubmit={handleSubmit}>
 			<TopText />
 			
 			<input 
 				type="file"
+				multiple
+				required
+				accept=".jpg, .jpeg, .png, .pdf"
+				onChange={handleChange}
 			/>
 			
 			<button>Upload </button>
